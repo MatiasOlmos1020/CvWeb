@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Matías Nicolás Olmos Rivero</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Variables de Tema: Catppuccin Mocha (Dark Default) */
+        :root {
+            --base: #1e1e2e;
+            --mantle: #181825;
+            --crust: #11111b;
+            --text: #cdd6f4;
+            --subtext: #bac2de;
+            --lavender: #b4befe;
+            --lavender-hover: #cdd6f4;
+            --surface0: #313244;
+            --surface1: #45475a;
+            --border-color: #313244;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Variables de Tema: Catppuccin Latte (Light Mode) */
+        body.light-mode {
+            --base: #eff1f5;
+            --mantle: #e6e9ef;
+            --crust: #dce0e8;
+            --text: #4c4f69;
+            --subtext: #5c5f77;
+            --lavender: #7287fd; /* Lavanda más oscuro para contraste */
+            --lavender-hover: #1e66f5;
+            --surface0: #ccd0da;
+            --surface1: #bcc0cc;
+            --border-color: #ccd0da;
+            --shadow: rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--base);
+            color: var(--text);
+            transition: background-color 0.4s, color 0.4s;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        p, span, li {
+            color: var(--subtext);
+        }
+
+        a {
+            color: var(--lavender);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: var(--lavender-hover);
+        }
+
+        /* Botón de alternancia de tema */
+        .theme-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--lavender);
+            color: var(--base);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px var(--shadow);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s, background-color 0.4s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Animaciones de Scroll */
+        .hidden-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .show-element {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Encabezado */
+        .header-section {
+            padding: 60px 0 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--mantle);
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--lavender);
+            background-color: var(--surface0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 60px;
+            color: var(--lavender);
+            overflow: hidden;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contact-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .contact-badge {
+            background-color: var(--surface0);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Tarjetas */
+        .cv-card {
+            background-color: var(--mantle);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .cv-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            color: var(--lavender);
+            border-bottom: 2px solid var(--surface1);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Barras de Progreso */
+        .skill-bar-container {
+            margin-bottom: 15px;
+        }
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+        .progress {
+            height: 10px;
+            background-color: var(--surface0);
+            border-radius: 10px;
+            overflow: visible;
+        }
+        .progress-bar {
+            background-color: var(--lavender);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Tags Tecnologías */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .tech-tag {
+            background-color: var(--surface0);
+            color: var(--text);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-family: 'Fira Code', monospace;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Línea de Tiempo (Experiencia / Educación) */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--surface1);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--lavender);
+            border: 3px solid var(--mantle);
+        }
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--lavender);
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .timeline-title {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+        .timeline-subtitle {
+            font-size: 0.95rem;
+            color: var(--subtext);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .timeline-content ul {
+            padding-left: 15px;
+            margin-bottom: 0;
+        }
+        .timeline-content li {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        /* Referencias */
+        .reference-box {
+            background-color: var(--surface0);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            height: 100%;
+        }
+        .reference-name {
+            color: var(--text);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .reference-role {
+            font-size: 0.85rem;
+            color: var(--subtext);
+            margin-bottom: 10px;
+        }
+        .reference-contact {
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-toggle" id="themeToggleBtn">
+        <i class="fa-solid fa-sun" id="themeIcon"></i>
+    </button>
+
+    <header class="header-section hidden-element">
+        <div class="container">
+            <div class="profile-pic">
+                <i class="fa-solid fa-user-astronaut"></i>
+            </div>
+            <h1 class="display-5">Matías Nicolás Olmos Rivero</h1>
+            <h4 class="fw-light" style="color: var(--lavender);">Téc. Univ. en Programación</h4>
+            
+            <div class="contact-badges">
+                <a href="tel:+5493564470092" class="contact-badge text-decoration-none">
+                    <i class="fa-solid fa-phone"></i> +54 9 3564 470092
+                </a>
+                <a href="mailto:matiasolmosrivero@gmail.com" class="contact-badge text-decoration-none">
+                    <i class="fa-solid fa-envelope"></i> matiasolmosrivero@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/matius-olmos-rivero" target="_blank" class="contact-badge text-decoration-none">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        <div class="row g-4">
+            
+            <div class="col-12 col-lg-4">
+                
+                <div class="cv-card hidden-element">
+                    <h3 class="section-title"><i class="fa-regular fa-user"></i> Perfil</h3>
+                    <p style="font-size: 0.95rem;">
+                        Me caracterizo por mi capacidad de aprendizaje rápido, mi puntualidad y mi excelente trato con clientes y compañeros. 
+                        Soy una persona responsable, respetuosa y comprometida, con disposición para adaptarme a nuevos desafíos y contribuir a un ambiente de trabajo positivo.
+                    </p>
+                </div>
+
+                <div class="cv-card hidden-element">
+                    <h3 class="section-title"><i class="fa-solid fa-code"></i> Aptitudes</h3>
+                    
+                    <div class="skill-bar-container">
+                        <div class="skill-label"><span>HTML5 / CSS / JavaScript</span> <span>Avanzado</span></div>
+                        <div class="progress"><div class="progress-bar" data-width="95%"></div></div>
+                    </div>
+                    
+                    <div class="skill-bar-container">
+                        <div class="skill-label"><span>ANGULAR (2 años)</span> <span>Intermedio</span></div>
+                        <div class="progress"><div class="progress-bar" data-width="75%"></div></div>
+                    </div>
+
+                    <div class="skill-bar-container">
+                        <div class="skill-label"><span>Node JS / TypeScript (2 años)</span> <span>Intermedio</span></div>
+                        <div class="progress"><div class="progress-bar" data-width="75%"></div></div>
+                    </div>
+
+                    <div class="skill-bar-container">
+                        <div class="skill-label"><span>API rest (2 años)</span> <span>Intermedio</span></div>
+                        <div class="progress"><div class="progress-bar" data-width="75%"></div></div>
+                    </div>
+
+                    <div class="skill-bar-container">
+                        <div class="skill-label"><span>MONGO-DB (2 años)</span> <span>Intermedio</span></div>
+                        <div class="progress"><div class="progress-bar" data-width="80%"></div></div>
+                    </div>
+
+                    <div class="skill-bar-container">
+                        <div class="skill-label"><span>VUE.JS</span> <span>Intermedio</span></div>
+                        <div class="progress"><div class="progress-bar" data-width="65%"></div></div>
+                    </div>
+                </div>
+
+                <div class="cv-card hidden-element">
+                    <h3 class="section-title"><i class="fa-solid fa-microchip"></i> Conocimientos</h3>
+                    <div class="tech-tags">
+                        <span class="tech-tag"><i class="fa-brands fa-linux"></i> Linux</span>
+                        <span class="tech-tag"><i class="fa-brands fa-git-alt"></i> GIT/GitHub</span>
+                        <span class="tech-tag">Inglés Técnico</span>
+                        <span class="tech-tag">Fotografía</span>
+                        <span class="tech-tag">Edición de Imágenes</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-8">
+                
+                <div class="cv-card hidden-element">
+                    <h3 class="section-title"><i class="fa-solid fa-briefcase"></i> Experiencia Laboral</h3>
+                    <div class="timeline">
+                        
+                        <div class="timeline-item">
+                            <span class="timeline-date">2023 - Actualidad</span>
+                            <h4 class="timeline-title">Data Analist y Auditor</h4>
+                            <h5 class="timeline-subtitle">Stafflex Solution</h5>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Ingreso y auditoría de datos de movimientos transfronterizos para empresas internacionales.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <span class="timeline-date">2025</span>
+                            <h4 class="timeline-title">Práctica Supervisada</h4>
+                            <h5 class="timeline-subtitle">POSweb</h5>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Desarrollo Frontend (Módulos ANGULAR).</li>
+                                    <li>Desarrollo Backend (Microservice API rest con Node JS).</li>
+                                    <li>Mantenimiento del proyecto en GitHub.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <span class="timeline-date">2022 - 2023</span>
+                            <h4 class="timeline-title">Desarrollador</h4>
+                            <h5 class="timeline-subtitle">POSweb</h5>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Desarrollo web Full Stack (Angular - Node.js).</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <span class="timeline-date">2021 - 2022</span>
+                            <h4 class="timeline-title">Desarrollador</h4>
+                            <h5 class="timeline-subtitle">Estudio Rocha y Asoc.</h5>
+                            <div class="timeline-content">
+                                <ul>
+                                    <li>Desarrollo web Front-end (PHP - CSS - HTML - JQuery - Bootstrap).</li>
+                                    <li>Producción audiovisual en streaming.</li>
+                                    <li>Fotografía de productos.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="cv-card hidden-element">
+                    <h3 class="section-title"><i class="fa-solid fa-graduation-cap"></i> Educación</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="timeline-date">Finalizado en 2025</span>
+                            <h4 class="timeline-title">Técnico Universitario en Programación</h4>
+                            <h5 class="timeline-subtitle">Universidad Tecnológica Nacional - Facultad Regional de San Francisco</h5>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="timeline-date">Finalizado en 2017</span>
+                            <h4 class="timeline-title">Bachiller en Economía y Administración</h4>
+                            <h5 class="timeline-subtitle">Colegio Nacional Superior San Martín</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cv-card hidden-element">
+                    <h3 class="section-title"><i class="fa-solid fa-users"></i> Referencias Profesionales</h3>
+                    <div class="row g-3">
+                        
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="reference-box">
+                                <h5 class="reference-name">William Darío Barbero</h5>
+                                <p class="reference-role">Ingeniero en Sistemas en InfoCor</p>
+                                <div class="reference-contact">
+                                    <a href="tel:+5493564584003"><i class="fa-solid fa-phone"></i> +54 9 3564 584003</a>
+                                    <a href="mailto:williamdbarbero@gmail.com"><i class="fa-solid fa-envelope"></i> Correo</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="reference-box">
+                                <h5 class="reference-name">Mayco Cenizo</h5>
+                                <p class="reference-role">Desarrollador Senior en Cubits SRL</p>
+                                <div class="reference-contact">
+                                    <a href="tel:+5493564677794"><i class="fa-solid fa-phone"></i> +54 9 3564 677794</a>
+                                    <a href="mailto:maycocenizo@gmail.com"><i class="fa-solid fa-envelope"></i> Correo</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="reference-box">
+                                <h5 class="reference-name">Matías Grande</h5>
+                                <p class="reference-role">Full-Stack Dev Senior en Trizap</p>
+                                <div class="reference-contact">
+                                    <a href="tel:+5493564690010"><i class="fa-solid fa-phone"></i> +54 9 3564 690010</a>
+                                    <a href="mailto:matias.j.grande@gmail.com"><i class="fa-solid fa-envelope"></i> Correo</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. Alternador de Modo Oscuro / Claro
+            const themeBtn = document.getElementById('themeToggleBtn');
+            const themeIcon = document.getElementById('themeIcon');
+            
+            themeBtn.addEventListener('click', () => {
+                document.body.classList.toggle('light-mode');
+                
+                if (document.body.classList.contains('light-mode')) {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            });
+
+            // 2. Animaciones al hacer scroll (Intersection Observer)
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -40px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Aparece la tarjeta
+                        entry.target.classList.add('show-element');
+                        
+                        // Si la tarjeta tiene barras de progreso, se animan
+                        const progressBars = entry.target.querySelectorAll('.progress-bar');
+                        if(progressBars.length > 0) {
+                            setTimeout(() => {
+                                progressBars.forEach(bar => {
+                                    bar.style.width = bar.getAttribute('data-width');
+                                });
+                            }, 300); // Pequeño retraso visual
+                        }
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const hiddenElements = document.querySelectorAll('.hidden-element');
+            hiddenElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
